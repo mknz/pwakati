@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="ja">
+    <head>
+        <meta charset="UTF-8">
+        <title>分かち書き変換</title>
+        <link rel="stylesheet" type="text/css" href="static/main.css">
+    </head>
+    <body>
+        <h1>分かち書き変換</h1>
+        <form method="POST" action="/">
+            {{ form.hidden_tag() }}
+            {{ form.text.label }} {{ form.text(size=100) }}
+            <br>
+            <input type="submit" value="変換">
+        </form>
+        <br>
+        <form action="/">
+            <label>変換結果</label>
+            <textarea>{{ rstr }}</textarea>
+        </form>
+        Ver 0.1 (updated 2016-02-12)
+    </body>
+</html>
