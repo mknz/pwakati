@@ -1,5 +1,6 @@
 # pwakati
 Convert Japanese text into spaced text.
+
 ver 0.1
 
 ## Requirements

@@ -9,7 +9,7 @@
         <h1>分かち書き変換</h1>
         <form method="POST" action="/">
             {{ form.hidden_tag() }}
-            {{ form.text.label }} {{ form.text(size=100) }}
+            {{ form.text.label }} {{ form.text(size=10000) }}
             <br>
             <input type="submit" value="変換">
         </form>

@@ -91,6 +91,7 @@ def chunk_with_kanji(istr):
     rstr = u""
     i = 0
     for j, f in enumerate(flags):
+        if i >= len(cflags): break
         if cflags[i] == KUGIRI:
             if f == KUTOU: 
                 rstr += surface[j]
