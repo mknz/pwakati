@@ -118,8 +118,17 @@ def chunk_with_hira(istr):
 
     return rstr
 
+def clean_punct(istr):
+    ''' remove space before punctuatons '''
+    istr = re.sub(ur'　。', u'。', istr)
+    istr = re.sub(ur'。　', u'。', istr)
+    istr = re.sub(ur'　、', u'、', istr)
+    istr = re.sub(ur'、　', u'、', istr)
+    return istr
+
 def main(istr):
     rstr = chunk_with_hira(chunk_with_kanji(istr))
+    rstr = clean_punct(rstr)
     return rstr
 
 if __name__ == "__main__":
