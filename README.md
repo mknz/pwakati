@@ -15,3 +15,11 @@ pip install flask
 
 Then access to http://localhost:5000
 
+## TODO
+-Correct handling of punctuations.
+-Preserve alphanumerals in conversion.
+-Support https (Let's Encrypt).
+-File uploading / downloading.
+
+-
+
