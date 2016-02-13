@@ -127,8 +127,12 @@ def clean_punct(istr):
     return istr
 
 def main(istr):
-    rstr = chunk_with_hira(chunk_with_kanji(istr))
-    rstr = clean_punct(rstr)
+    lines = istr.splitlines()
+    rstr = u''
+    for line in lines:
+        rline = chunk_with_hira(chunk_with_kanji(line))
+        rline = clean_punct(rline)
+        rstr += rline + u'\n'
     return rstr
 
 if __name__ == "__main__":

@@ -7,7 +7,9 @@ ver 0.1
 Python 2.x
 
 > pip install janome
+
 > pip install jctconv
+
 > pip install flask flask-wtf
 
 ## Usage
@@ -16,10 +18,6 @@ Python 2.x
 Then access to http://localhost:5000
 
 ## TODO
-- Correct handling of punctuations.
 - Preserve alphanumerals in conversion.
-- Support https (Let's Encrypt).
+- Support https (Let's Encrypt etc).
 - File uploading / downloading.
-
--
-

@@ -4,10 +4,10 @@ from flask import Flask, render_template
 from flask_wtf import Form
 from wtforms import StringField, TextAreaField
 from wtforms.validators import DataRequired
-import numpy as np
+import random
 
 DEBUG = True
-SECRET_KEY = str(np.random.random())
+SECRET_KEY = str(random.random())
 
 app = Flask(__name__)
 app.config.from_object(__name__)
@@ -16,7 +16,7 @@ class MyForm(Form):
     text = TextAreaField(u'テキストを入力', validators=[DataRequired()])
 
 def preprocess_input(istr):
-    istr = istr.replace('\r', u'\n')
+    istr = istr.replace('\r', '')
     return istr
 
 @app.route('/', methods=('GET', 'POST'))
