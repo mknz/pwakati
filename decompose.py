@@ -10,12 +10,12 @@ WTYPE = (
     KUGIRI
 ) = range(4)
 
-TOKENS_KANJI = re.compile(u'[一-龠]+') 
+TOKENS_KANJI = re.compile(u'[々〇〻\u3220-\u3244\u3280-\u32B0\u3400-\u9FFF\uF900-\uFAFF\x20000-\u2FFFF]+') 
 TOKENS_KATAKANA = re.compile(u'[ァ-ヾ]+')
-TOKENS_HIRAGANA = re.compile(u'[[ぁ-ん]+')
+TOKENS_HIRAGANA = re.compile(u'[ぁ-ん]+')
 
 # kanji + katakana + hiragana
-TOKENS_TARGET = re.compile(u'[一-龠ァ-ヾぁ-ん]+')
+TOKENS_TARGET = re.compile(u'[々〇〻\u3220-\u3244\u3280-\u32B0\u3400-\u9FFF\uF900-\uFAFF\x20000-\u2FFFFァ-ヾぁ-ん]+')
 
 def judge_jifu(part_of_speech):
     try: 
