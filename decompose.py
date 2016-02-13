@@ -118,7 +118,7 @@ def chunk_with_kanji(istr):
             i += 1
 
     # don't know why this is necessary
-    if flags != [] and j == 0: 
+    if flags != [] and j == 0 and len(surface) != 1: 
         while j  < len(surface):
             rstr += surface[j]    
             j += 1
