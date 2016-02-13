@@ -17,3 +17,6 @@ form textarea {
   font-size: 1.1em;
 }
 
+p, ul {
+    font-size: 10pt;
+}
