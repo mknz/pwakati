@@ -10,6 +10,13 @@ WTYPE = (
     KUGIRI
 ) = range(4)
 
+TOKENS_KANJI = re.compile(u'[一-龠]+') 
+TOKENS_KATAKANA = re.compile(u'[ァ-ヾ]+')
+TOKENS_HIRAGANA = re.compile(u'[[ぁ-ん]+')
+
+# kanji + katakana + hiragana
+TOKENS_TARGET = re.compile(u'[一-龠ァ-ヾぁ-ん]+')
+
 def judge_jifu(part_of_speech):
     try: 
         part_of_speech = part_of_speech.decode('utf-8')
@@ -73,16 +80,22 @@ def insert_chunkflg(flags):
 
     return result
 
-def chunk_with_kanji(istr):
-    istr = jctconv.h2z(istr, digit=True, ascii=True)
+def fix_reading(surfaces, readings):
+    rn = []
+    for s, r in zip(surfaces, readings):
+        if r == u'*':
+            rn.append(s)
+        else:
+            rn.append(r)
+    return rn
 
+def chunk_with_kanji(istr):
     t = Tokenizer()
     tokens = t.tokenize(istr)
 
     # give each element flags (jiritsu or fuzoku)
     flags = [judge_jifu(x.part_of_speech) for x in tokens]
     
-    reading = [x.reading.decode('utf-8') for x in tokens]
     surface = [x.surface for x in tokens]
 
     # split to chunks, delimited by KUGIRI flag
@@ -104,8 +117,9 @@ def chunk_with_kanji(istr):
             rstr += surface[j]
             i += 1
 
-    if flags != []:
-        while j < len(surface):
+    # don't know why this is necessary
+    if flags != [] and j == 0: 
+        while j  < len(surface):
             rstr += surface[j]    
             j += 1
 
@@ -119,7 +133,10 @@ def chunk_with_hira(istr):
     for c in chunks:
         tokens = t.tokenize(c)
         for tk in tokens:
-            rstr += jctconv.kata2hira(tk.reading.decode('utf-8')) + u'　'
+            reading = tk.reading.decode('utf-8')
+            if reading == u'*':
+                reading = tk.surface
+            rstr += jctconv.kata2hira(reading) + u'　'
 
     return rstr
 
@@ -135,9 +152,16 @@ def main(istr):
     lines = istr.splitlines()
     rstr = u''
     for line in lines:
-        rline = chunk_with_hira(chunk_with_kanji(line))
-        rline = clean_punct(rline)
-        rstr += rline + u'\n'
+        # split at non-target part, process only target part
+        targets = re.findall(TOKENS_TARGET, line)
+        non_targets = re.split(TOKENS_TARGET, line)
+        wline = u''
+        for n, t in zip(non_targets, targets + [u'']):
+            w = chunk_with_hira(chunk_with_kanji(t))
+            wline += n + w
+            
+        rstr += clean_punct(wline) + u'\n'
+
     return rstr
 
 if __name__ == "__main__":
