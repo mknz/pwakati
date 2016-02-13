@@ -86,8 +86,8 @@ def chunk_with_kanji(istr):
     surface = [x.surface for x in tokens]
 
     # split to chunks, delimited by KUGIRI flag
+    # very ugly. should be rewritten using tree structure etc.
     cflags = insert_chunkflg(flags)
-    
     rstr = u""
     i = 0
     for j, f in enumerate(flags):
@@ -103,7 +103,12 @@ def chunk_with_kanji(istr):
         else:
             rstr += surface[j]
             i += 1
-        
+
+    if flags != []:
+        while j < len(surface):
+            rstr += surface[j]    
+            j += 1
+
     return rstr
     
 def chunk_with_hira(istr):
