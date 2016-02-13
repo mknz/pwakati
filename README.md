@@ -1,7 +1,7 @@
 # pwakati
 Convert Japanese text into spaced text.
 
-ver 0.1
+ver 0.2
 
 ## Requirements
 Python 2.x
@@ -18,6 +18,6 @@ Python 2.x
 Then access to http://localhost:<port>
 
 ## TODO
-- Preserve alphanumerals in conversion.
+- Correct wrong space insertion.
 - Support https (Let's Encrypt etc).
 - File uploading / downloading.
