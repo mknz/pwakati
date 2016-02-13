@@ -4,9 +4,8 @@ from flask import Flask, render_template
 from flask_wtf import Form
 from wtforms import StringField, TextAreaField
 from wtforms.validators import DataRequired
-import random
+import sys, random
 
-DEBUG = True
 SECRET_KEY = str(random.random())
 
 app = Flask(__name__)
@@ -28,5 +27,13 @@ def pwakati():
     return render_template('pwakati.html', form=form)
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=5000)
+    port = int(sys.argv[1])
+
+    if len(sys.argv) > 2 and sys.argv[2] == 'debug':
+        print "Run in debug mode."
+        debug = True
+    else:
+        debug = False
+
+    app.run(host="0.0.0.0", port=port, debug=debug)
 

@@ -13,9 +13,9 @@ Python 2.x
 > pip install flask flask-wtf
 
 ## Usage
-> python app.py
+> python app.py <port> <debug>
 
-Then access to http://localhost:5000
+Then access to http://localhost:<port>
 
 ## TODO
 - Preserve alphanumerals in conversion.
