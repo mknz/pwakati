@@ -232,3 +232,4 @@ if __name__ == "__main__":
     istr = f.read().decode('utf-8')
     print main(istr)
 
+
