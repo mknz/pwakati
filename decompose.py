@@ -147,6 +147,11 @@ def clean_punct(istr):
     istr = re.sub(ur'、　', u'、', istr)
     return istr
 
+def add_space_after_punct(istr):
+    istr = re.sub(ur'。', u'。　', istr)
+    istr = re.sub(ur'、', u'、　', istr)
+    return istr
+
 def main(istr):
     lines = istr.splitlines()
     rstr = u''
@@ -160,6 +165,7 @@ def main(istr):
             wline += n + w
             
         rstr += clean_punct(wline) + u'\n'
+    rstr = add_space_after_punct(rstr)
 
     return rstr
 
