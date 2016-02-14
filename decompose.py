@@ -15,7 +15,7 @@ TOKENS_KATAKANA = re.compile(u'[ァ-ヾ]+')
 TOKENS_HIRAGANA = re.compile(u'[ぁ-ん]+')
 
 # kanji + katakana + hiragana
-TOKENS_TARGET = re.compile(u'[々〇〻\u3220-\u3244\u3280-\u32B0\u3400-\u9FFF\uF900-\uFAFF\u20000-\u2FFFFァ-ヾぁ-ん]+')
+TOKENS_TARGET = re.compile(u'[々〇〻\u3220-\u3244\u3280-\u32B0\u3400-\u9FFF\uF900-\uFAFF\u2000-\u2FFFァ-ヾぁ-ん]+')
 
 def judge_jifu(part_of_speech):
     try: 
@@ -125,17 +125,14 @@ def chunk_with_kanji(istr):
     return rstr
     
 def chunk_with_hira(istr):
-    chunks = istr.split(u'　')
-
     rstr = u''
     t = Tokenizer()
-    for c in chunks:
-        tokens = t.tokenize(c)
-        for tk in tokens:
-            reading = tk.reading.decode('utf-8')
-            if reading == u'*':
-                reading = tk.surface
-            rstr += jctconv.kata2hira(reading) + u'　'
+    tokens = t.tokenize(istr)
+    for tk in tokens:
+        reading = tk.reading.decode('utf-8')
+        if reading == u'*':
+            reading = tk.surface
+        rstr += jctconv.kata2hira(reading) + u'　'
 
     return rstr
 
@@ -170,6 +167,7 @@ def main(istr, kanji=False):
             wline += n + w
             
         rstr += clean_punct(wline) + u'\n'
+
     if kanji == False:
         rstr = add_space_after_punct(rstr)
 
