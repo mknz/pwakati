@@ -124,15 +124,65 @@ def chunk_with_kanji(istr):
 
     return rstr
     
-def chunk_with_hira(istr):
-    rstr = u''
+def chunk_with_hira(istr, keep_katakana=False):
     t = Tokenizer()
     tokens = t.tokenize(istr)
+
+    readings = [x.reading.decode('utf-8') for x in tokens]
+    surfaces = [x.surface for x in tokens]
+
+    pos = []
+    for token in tokens:
+        p = token.part_of_speech.split(',')[0]
+        if isinstance(p, unicode):
+            pos.append(p)
+        else:
+            pos.append(p.decode('utf-8'))
+
+    rstr = u''
+    for i, z in enumerate(zip(readings, surfaces, pos)):
+        r, s, p = z
+
+        if r == u'*':
+            if not keep_katakana:
+                if re.match(TOKENS_KATAKANA, s):
+                    rstr += jctconv.kata2hira(s) + u'　'
+                else:
+                    rstr += s + u'　'
+            else:
+                rstr += s + u'　'
+            continue
+
+        if i < len(pos) - 1:
+            if pos[i] == u'助動詞' and pos[i+1] == u'助動詞':
+                rstr += jctconv.kata2hira(r)
+            elif pos[i] == u'動詞' and pos[i+1] == u'助動詞':
+                rstr += jctconv.kata2hira(r)
+            elif pos[i] == u'動詞' and pos[i+1] == u'助詞':
+                rstr += jctconv.kata2hira(r)
+            elif pos[i] == u'動詞' and pos[i+1] == u'動詞':
+                rstr += jctconv.kata2hira(r)
+            else:
+                rstr += jctconv.kata2hira(r) + u'　'
+
+        elif i < len(pos) - 2:
+            if pos[i] == u'助動詞' and pos[i+1] == u'助詞' and pos[i+2] == u'助詞':
+                rstr += jctconv.kata2hira(r)
+            elif pos[i] == u'助動詞' and pos[i+1] == u'名詞' and pos[i+2] == u'助動詞':
+                rstr += jctconv.kata2hira(r)
+            else:
+                rstr += jctconv.kata2hira(r) + u'　'
+
+        else:
+            rstr += jctconv.kata2hira(r) + u'　'
+
+    '''
     for tk in tokens:
         reading = tk.reading.decode('utf-8')
         if reading == u'*':
             reading = tk.surface
         rstr += jctconv.kata2hira(reading) + u'　'
+    '''
 
     return rstr
 
@@ -159,12 +209,16 @@ def main(istr, kanji=False):
         targets = re.findall(TOKENS_TARGET, line)
         non_targets = re.split(TOKENS_TARGET, line)
         wline = u''
-        for n, t in zip(non_targets, targets + [u'']):
+        for i, z in enumerate(zip(non_targets, targets + [u''])):
+            n, t = z
             if kanji:
                 w = chunk_with_kanji(t)
             else:
                 w = chunk_with_hira(t)
-            wline += n + u'　' + w
+            if i == 0:
+                wline += n + w
+            else:
+                wline += n + u'　' + w
             
         rstr += clean_punct(wline) + u'\n'
 
