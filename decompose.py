@@ -145,6 +145,8 @@ def clean_punct(istr):
     istr = re.sub(ur'。　', u'。', istr)
     istr = re.sub(ur'　、', u'、', istr)
     istr = re.sub(ur'、　', u'、', istr)
+    istr = re.sub(ur'　！', u'！', istr)
+    istr = re.sub(ur'　？', u'？', istr)
     return istr
 
 def add_space_after_punct(istr):
@@ -152,7 +154,7 @@ def add_space_after_punct(istr):
     istr = re.sub(ur'、', u'、　', istr)
     return istr
 
-def main(istr):
+def main(istr, kanji=False):
     lines = istr.splitlines()
     rstr = u''
     for line in lines:
@@ -161,11 +163,15 @@ def main(istr):
         non_targets = re.split(TOKENS_TARGET, line)
         wline = u''
         for n, t in zip(non_targets, targets + [u'']):
-            w = chunk_with_hira(chunk_with_kanji(t))
+            if kanji:
+                w = chunk_with_kanji(t)
+            else:
+                w = chunk_with_hira(t)
             wline += n + w
             
         rstr += clean_punct(wline) + u'\n'
-    rstr = add_space_after_punct(rstr)
+    if kanji == False:
+        rstr = add_space_after_punct(rstr)
 
     return rstr
 
