@@ -1,7 +1,7 @@
 # pwakati
 Convert Japanese text into spaced text.
 
-ver 0.2
+ver 0.3
 
 ## Requirements
 Python 2.x
