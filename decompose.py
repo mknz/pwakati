@@ -10,7 +10,7 @@ WTYPE = (
     KUGIRI
 ) = range(4)
 
-TOKENS_KANJI = re.compile(u'[々〇〻\u3220-\u3244\u3280-\u32B0\u3400-\u9FFF\uF900-\uFAFF\u20000-\u2FFFF]+') 
+TOKENS_KANJI = re.compile(u'[々〇〻\u3220-\u3244\u3280-\u32B0\u3400-\u9FFF\uF900-\uFAFF\u2000-\u2FFF]+') 
 TOKENS_KATAKANA = re.compile(u'[ァ-ヾ]+')
 TOKENS_HIRAGANA = re.compile(u'[ぁ-ん]+')
 
@@ -164,7 +164,7 @@ def main(istr, kanji=False):
                 w = chunk_with_kanji(t)
             else:
                 w = chunk_with_hira(t)
-            wline += n + w
+            wline += n + u'　' + w
             
         rstr += clean_punct(wline) + u'\n'
 
