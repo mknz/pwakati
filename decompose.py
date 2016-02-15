@@ -188,14 +188,6 @@ def chunk_with_hira(istr, keep_katakana=False):
         else:
             rstr += jctconv.kata2hira(r) + u'　'
 
-    '''
-    for tk in tokens:
-        reading = tk.reading.decode('utf-8')
-        if reading == u'*':
-            reading = tk.surface
-        rstr += jctconv.kata2hira(reading) + u'　'
-    '''
-
     return rstr
 
 def clean_punct(istr):
@@ -234,12 +226,32 @@ def main(istr, kanji=False):
                 wline += n + w
             else:
                 wline += n + u'　' + w
+
+        if wline != u'':
+            while 1: # remove spaces at the end of the line
+                if wline[-1] == u'　':
+                    wline = wline[:-1]
+                else:
+                    break
             
         rstr += clean_punct(wline) + u'\n'
 
+    if rstr != u'':
+        while 1: # remove newline at the end of the line
+            if rstr[-1] == u'\n':
+                rstr = rstr[:-1]
+            else:
+                break
+
     if kanji == False:
         rstr = add_space_after_punct(rstr)
-
+        if rstr != u'':
+            while 1: # remove space at the end of the line
+                if rstr[-1] == u'　':
+                    rstr = rstr[:-1]
+                else:
+                    break
+        
     return rstr
 
 if __name__ == "__main__":
