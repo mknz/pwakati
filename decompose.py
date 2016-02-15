@@ -200,12 +200,15 @@ def chunk_with_hira(istr, keep_katakana=False):
 
 def clean_punct(istr):
     ''' remove space before punctuatons '''
-    istr = re.sub(ur'　。', u'。', istr)
-    istr = re.sub(ur'。　', u'。', istr)
-    istr = re.sub(ur'　、', u'、', istr)
-    istr = re.sub(ur'、　', u'、', istr)
-    istr = re.sub(ur'　！', u'！', istr)
-    istr = re.sub(ur'　？', u'？', istr)
+    replace_strings_before = u'。、！？（「【『［〈《〔｛《＜“‘'
+    replace_strings_after = u'。、！？）」】』］〉》〕｝》＞”’'
+
+    for rs in replace_strings_before:
+        istr = re.sub(ur'%s　' % rs, ur'%s' % rs, istr)
+
+    for rs in replace_strings_after:
+        istr = re.sub(ur'　%s' % rs, ur'%s' % rs, istr)
+
     return istr
 
 def add_space_after_punct(istr):
