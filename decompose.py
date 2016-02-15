@@ -139,9 +139,17 @@ def chunk_with_hira(istr, keep_katakana=False):
         else:
             pos.append(p.decode('utf-8'))
 
+    pos2 = []
+    for token in tokens:
+        p = token.part_of_speech.split(',')[1]
+        if isinstance(p, unicode):
+            pos2.append(p)
+        else:
+            pos2.append(p.decode('utf-8'))
+
     rstr = u''
-    for i, z in enumerate(zip(readings, surfaces, pos)):
-        r, s, p = z
+    for i, z in enumerate(zip(readings, surfaces, pos, pos2)):
+        r, s, p, p2 = z
 
         if r == u'*':
             if not keep_katakana:
@@ -161,6 +169,10 @@ def chunk_with_hira(istr, keep_katakana=False):
             elif pos[i] == u'動詞' and pos[i+1] == u'助詞':
                 rstr += jctconv.kata2hira(r)
             elif pos[i] == u'動詞' and pos[i+1] == u'動詞':
+                rstr += jctconv.kata2hira(r)
+            elif pos2[i] == u'代名詞' and pos2[i+1] == u'副助詞／並立助詞／終助詞':
+                rstr += jctconv.kata2hira(r)
+            elif pos2[i+1] == u'接尾':
                 rstr += jctconv.kata2hira(r)
             else:
                 rstr += jctconv.kata2hira(r) + u'　'
