@@ -170,6 +170,8 @@ def chunk_with_hira(istr, keep_katakana=False):
                 rstr += jctconv.kata2hira(r)
             elif pos[i] == u'動詞' and pos[i+1] == u'動詞':
                 rstr += jctconv.kata2hira(r)
+            elif pos[i] == u'接頭詞' and pos[i+1] == u'名詞':
+                rstr += jctconv.kata2hira(r)
             elif pos2[i] == u'代名詞' and pos2[i+1] == u'副助詞／並立助詞／終助詞':
                 rstr += jctconv.kata2hira(r)
             elif pos2[i+1] == u'接尾':
@@ -190,7 +192,7 @@ def chunk_with_hira(istr, keep_katakana=False):
 
     return rstr
 
-def clean_punct(istr):
+def remove_space(istr):
     ''' remove space before punctuatons '''
     replace_strings_before = u'。、！？（「【『［〈《〔｛《＜“‘'
     replace_strings_after = u'。、！？）」】』］〉》〕｝》＞”’'
@@ -209,7 +211,7 @@ def add_space_after_punct(istr):
     istr = re.sub(ur'、', u'、　', istr)
     return istr
 
-def main(istr, kanji=False):
+def main(istr, kanji=False, keep_katakana=False):
     lines = istr.splitlines()
     rstr = u''
     for line in lines:
@@ -222,7 +224,7 @@ def main(istr, kanji=False):
             if kanji:
                 w = chunk_with_kanji(t)
             else:
-                w = chunk_with_hira(t)
+                w = chunk_with_hira(t, keep_katakana=keep_katakana)
             if i == 0:
                 wline += n + w
             else:
@@ -235,7 +237,7 @@ def main(istr, kanji=False):
                 else:
                     break
             
-        rstr += clean_punct(wline) + u'\n'
+        rstr += remove_space(wline) + u'\n'
 
     if rstr != u'':
         while 1: # remove newline at the end of the line

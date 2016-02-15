@@ -18,6 +18,5 @@ Python 2.x
 Then access to http://localhost:<port>
 
 ## TODO
-- Correct wrong space insertion.
 - Support https (Let's Encrypt etc).
 - File uploading / downloading.
