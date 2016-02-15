@@ -205,6 +205,7 @@ def clean_punct(istr):
 
 def add_space_after_punct(istr):
     istr = re.sub(ur'。', u'。　', istr)
+    istr = re.sub(ur'。　\n', u'。\n', istr)
     istr = re.sub(ur'、', u'、　', istr)
     return istr
 
@@ -251,7 +252,6 @@ def main(istr, kanji=False):
                     rstr = rstr[:-1]
                 else:
                     break
-        
     return rstr
 
 if __name__ == "__main__":
