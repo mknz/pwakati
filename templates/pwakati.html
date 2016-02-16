@@ -7,7 +7,7 @@
     </head>
     <body>
         <h1>分かち書き変換</h1>
-        <form method="POST" action="/">
+        <form method="POST" action="{{ url_for('pwakati') }}">
             {{ form.hidden_tag() }}
             {{ form.text.label }} {{ form.text(size=10000) }}
             <br>

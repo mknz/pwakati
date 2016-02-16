@@ -6,7 +6,7 @@ from wtforms import StringField, TextAreaField
 from wtforms.validators import DataRequired
 import sys, random
 
-SECRET_KEY = str(random.random())
+SECRET_KEY = 'DEVELOPMENT_KEY'
 
 app = Flask(__name__)
 app.config.from_object(__name__)
