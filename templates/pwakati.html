@@ -1,20 +1,57 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ja">
-    <head>
-        <meta charset="UTF-8">
-        <title>分かち書き変換</title>
-        <link rel="stylesheet" type="text/css" href="static/main.css">
-    </head>
-    <body>
-        <h1>分かち書き変換</h1>
-        <form method="POST" action="{{ url_for('pwakati') }}">
+<head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="A layout example with a side menu that hides on mobile, just like the Pure website.">
+
+    <title>Responsive Side Menu &ndash; Layout Examples &ndash; Pure</title>
+
+<link rel="stylesheet" type="text/css" href="static/main.css">
+<link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.6.0/pure-min.css">
+
+    <!--[if lte IE 8]>
+        <link rel="stylesheet" href="static/side-menu-old-ie.css">
+    <![endif]-->
+    <!--[if gt IE 8]><!-->
+        <link rel="stylesheet" href="static/side-menu.css">
+    <!--<![endif]-->
+
+</head>
+<body>
+
+<div id="layout">
+    <!-- Menu toggle -->
+    <a href="#menu" id="menuLink" class="menu-link">
+        <!-- Hamburger icon -->
+        <span></span>
+    </a>
+
+    <div id="menu">
+        <div class="pure-menu">
+            <ul class="pure-menu-list">
+                <li class="pure-menu-item"><a href="#" class="pure-menu-link">分かち書き変換</a></li>
+                <li class="pure-menu-item"><a href="#" class="pure-menu-link">ふりがな化</a></li>
+                <li class="pure-menu-item"><a href="#" class="pure-menu-link">About</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <div id="main">
+        <div class="header">
+            <h1>分かち書き変換</h1>
+            <h2>漢字かな交じりの文章を分かち書きに</h2>
+        </div>
+
+        <div class="content">
+        <form class="pure-form" method="POST" action="{{ url_for('pwakati') }}">
             {{ form.hidden_tag() }}
             {{ form.text.label }} {{ form.text(size=10000) }}
             <br>
-            <input type="submit" value="変換">
+            <button type="submit" class="pure-button pure-button-primary">変換</button>
         </form>
         <br>
-        <form action="/">
+        <form class="pure-form" action="/">
             <label>変換結果</label>
             <textarea>{{ rstr }}</textarea>
         </form>
@@ -27,5 +64,12 @@
             <li>ファイルアップロード対応</li>
         </ul>
         <p><a href="https://github.com/mknz/pwakati">code</a></p>
-    </body>
+
+        </div>
+    </div>
+</div>
+
+<script src="static/js/ui.js"></script>
+
+</body>
 </html>
