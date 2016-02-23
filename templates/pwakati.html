@@ -8,6 +8,7 @@
     <title>分かち書き変換</title>
 
 <link rel="stylesheet" type="text/css" href="static/main.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
 <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.6.0/pure-min.css">
 
     <!--[if lte IE 8]>
@@ -39,6 +40,7 @@
 
     <div id="main">
         <div class="header">
+            <a href="https://github.com/you"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://camo.githubusercontent.com/a6677b08c955af8400f44c6298f40e7d19cc5b2d/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f677261795f3664366436642e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_gray_6d6d6d.png"></a>
             <h1>分かち書き変換</h1>
             <h2>漢字かな交じりの文章を分かち書きに</h2>
         </div>
@@ -47,10 +49,8 @@
         <form class="pure-form" method="POST" action="{{ url_for('pwakati') }}">
             {{ form.hidden_tag() }}
             {{ form.text.label }} {{ form.text(size=10000) }}
-            <br>
             <button type="submit" class="pure-button pure-button-primary">変換</button>
         </form>
-        <br>
         <form class="pure-form" action="/">
             <label>変換結果</label>
             <textarea>{{ rstr }}</textarea>
@@ -63,7 +63,7 @@
             <li>https対応</li>
             <li>ファイルアップロード対応</li>
         </ul>
-        <p><a href="https://github.com/mknz/pwakati">code</a></p>
+        <p><a href="https://github.com/mknz/pwakati"><i class="fa fa-github"></i> code</a></p>
 
         </div>
     </div>
