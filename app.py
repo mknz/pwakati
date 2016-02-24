@@ -27,13 +27,11 @@ def pwakati():
     return render_template('pwakati.html', form=form)
 
 if __name__ == "__main__":
-    port = int(sys.argv[1])
-
-    if len(sys.argv) > 2 and sys.argv[2] == 'debug':
-        print "Run in debug mode."
-        debug = True
-    else:
-        debug = False
-
-    app.run(host="0.0.0.0", port=port, debug=debug)
+    import argparse
+    parser = argparse.ArgumentParser(description='pwakati')
+    parser.add_argument('--debug', action='store_true')
+    parser.add_argument('--port', type=int)
+    args = parser.parse_args()
+    
+    app.run(port=args.port, debug=args.debug)
 

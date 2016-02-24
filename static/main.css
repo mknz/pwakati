@@ -1,3 +1,7 @@
+a {
+    text-decoration-line: none;
+}
+
 form label {
   font-size: 1em;
   display: block;
@@ -17,3 +21,6 @@ form textarea {
   font-size: 1.1em;
 }
 
+.pure-form {
+    margin-bottom: 30px;
+}
