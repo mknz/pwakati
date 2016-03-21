@@ -18,5 +18,4 @@ Python 2.x
 Then access to http://localhost:<port>
 
 ## TODO
-- Support https (Let's Encrypt etc).
 - File uploading / downloading.

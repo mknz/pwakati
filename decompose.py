@@ -128,7 +128,14 @@ def chunk_with_hira(istr, keep_katakana=False):
     t = Tokenizer()
     tokens = t.tokenize(istr)
 
-    readings = [x.reading.decode('utf-8') for x in tokens]
+    readings = []
+    for token in tokens:
+        reading = token.reading
+        if isinstance(reading, unicode):
+            readings.append(reading)
+        else:
+            readings.append(reading.decode('utf-8'))
+
     surfaces = [x.surface for x in tokens]
 
     pos = []
