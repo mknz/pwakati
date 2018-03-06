@@ -25,21 +25,28 @@ app = Flask(__name__)
 app.config.from_object(__name__)
 
 
-class MyForm(FlaskForm):
+class InputForm(FlaskForm):
     text = TextAreaField('テキストを入力', validators=[DataRequired()])
 
 
-def preprocess_input(istr):
-    istr = istr.replace('\r', '')
-    return istr
+def preprocess_input(input_string):
+    carriage_return_removed = input_string.replace('\r', '')
+    return carriage_return_removed
 
 
 @app.route('/', methods=('GET', 'POST'))
 def pwakati():
-    form = MyForm()
+    form = InputForm()
+
     if form.validate_on_submit():
-        rstr = decompose.main(preprocess_input(form.text.data))
+
+        try:
+            rstr = decompose.main(preprocess_input(form.text.data))
+        except:
+            rstr = 'Error!'
+
         return render_template('pwakati.html', form=form, rstr=rstr)
+
     return render_template('pwakati.html', form=form)
 
 if __name__ == '__main__':
