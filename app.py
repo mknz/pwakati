@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 import argparse
+import os
 
 from flask import Flask
 from flask import render_template
@@ -10,7 +11,15 @@ from wtforms.validators import DataRequired
 
 import decompose
 
-SECRET_KEY = 'DEVELOPMENT_KEY'
+
+class ConfigError(Exception):
+    pass
+
+
+SECRET_KEY = os.environ.get('SECRET_KEY')
+
+if not SECRET_KEY:
+    raise ConfigError
 
 app = Flask(__name__)
 app.config.from_object(__name__)
