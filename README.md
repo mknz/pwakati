@@ -10,6 +10,6 @@ Python3
 
 ## Usage
 
-> python app.py <port> <debug>
+`python app.py PORT`
 
-Then access to http://localhost:<port>
+Then access to `http://localhost:PORT`
