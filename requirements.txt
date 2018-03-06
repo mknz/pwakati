@@ -1,0 +1,5 @@
+janome
+jctconv
+flask
+flask-wtf
+gunicorn
